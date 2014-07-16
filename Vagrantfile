@@ -83,17 +83,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Default value: false
   config.ssh.forward_agent = true
 
-  # sync VM directories with local ./sync directory
-  config.vm.synced_folder "sync/opt/dryad",  "/opt/dryad",  create: false
-  config.vm.synced_folder "sync/home/vagrant/dryad-repo",  "/home/vagrant/dryad-repo",  create: false
-
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
   config.vm.provider "virtualbox" do |vb, override|
     # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.memory = 1024
+    vb.cpus = 2
+    # sync VM directories with local ./sync directory
+    # config.vm.synced_folder "sync/opt/dryad",  "/opt/dryad",  create: false
+    # config.vm.synced_folder "sync/home/vagrant/dryad-repo",  "/home/vagrant/dryad-repo",  create: false
   end
   config.vm.provider :aws do |aws, override|
     override.vm.box = "dummy"
