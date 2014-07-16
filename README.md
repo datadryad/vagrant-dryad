@@ -144,6 +144,8 @@ In addition to passwords and Git repo addresses, software versions, file paths, 
 
 In addition to port forwarding, the contents of this directory (The one containing the Vagrantfile) are synchronized from your host computer to the virtual machine's `/vagrant` directory. Additional synchronized directories can be added to the Vagrantfile. For example, the `dryad-bootstrap.sql` file that installs necessary content into the database is stored here, and used by the VM during installation.
 
+When VirtualBox is used as the VM provider, vagrant is configured to sync the guest system's "/opt/dryad" and "/home/vagrant/dryad-repo" directories to subdirectories of this directory's "sync/" subdirectory.
+
 ## Upgrading your VM
 
 As improvements are added to the vagrant/ansible configurations, you can incorporate the changes by merging in the latest changes from this repo, and running `vagrant provision`. Provisioning will bring your VM up to date without removing existing data or files. You may have to add new values to your `ansible-dryad/group_vars/all` file if they are required by newer versions of the ansible playbook, but the Vagrantfile will usually check for these important changes.
