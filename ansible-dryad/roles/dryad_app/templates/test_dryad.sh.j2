@@ -25,5 +25,5 @@ if [ $INSTALL_DB = 1 ]; then
 fi
 
 cd {{ dryad.repo_path }}
-mvn package -DskipTests=false -Ddefault.dspace.dir="$TEST_DIR"
+mvn clean package -DskipTests=false -Dmaven.test.skip=false -Ddefault.dspace.dir="$TEST_DIR"
 

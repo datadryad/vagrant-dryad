@@ -11,5 +11,7 @@
     - tomcat6-user
     - python-psycopg2
     - screen
+    - xvfb
+    - firefox
   tags:
     - packages

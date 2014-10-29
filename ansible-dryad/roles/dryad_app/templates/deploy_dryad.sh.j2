@@ -2,6 +2,7 @@
 
 set -e
 cd {{ dryad.repo_path }}/dspace/target/dspace-1.7.3-SNAPSHOT-build.dir/
+ant clean_backups -Doverwrite=true
 ant update -Doverwrite=true
 
 echo "Dryad has been deployed. Start tomcat with:"

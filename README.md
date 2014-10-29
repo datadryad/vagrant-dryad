@@ -26,7 +26,7 @@ First, You will need to clone the repository:
     git clone git@github.com:datadryad/vagrant-dryad.git
     cd vagrant-dryad
 
-Second, you will need to copy the `ansible-dryad/group-vars/all.template` to `ansible-dryad/group-vars/all` and set a database password and repository location.
+Second, you will need to copy the `ansible-dryad/group_vars/all.template` to `ansible-dryad/group_vars/all` and set a database password and repository location.
 
     cp ansible-dryad/group_vars/all.template ansible-dryad/group_vars/all
     edit ansible-dryad/group_vars/all

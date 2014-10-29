@@ -24,6 +24,7 @@ psql < ${DRYAD_CODE_DIR}/dspace/etc/collection-workflow-changes.sql
 psql < ${DRYAD_CODE_DIR}/dspace/etc/atmire-versioning-changes.sql
 psql < ${DRYAD_CODE_DIR}/dspace/etc/postgres/database_dryad_groups_collections.sql
 psql < ${DRYAD_CODE_DIR}/dspace/etc/postgres/database_dryad_registries.sql
+psql < ${DRYAD_CODE_DIR}/dspace/etc/postgres/dryad-rest-webapp.sql
 psql < ${DRYAD_CODE_DIR}/dspace/etc/postgres/update-sequences.sql
 
 # Copy test directory to local filesystem, outside of source repo, and owned by dryad user

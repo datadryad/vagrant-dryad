@@ -2,6 +2,7 @@
 - name: Clone Dryad repo
   git: repo={{ dryad.repo }}
        dest={{ dryad.repo_path }}
+       accept_hostkey=yes
   sudo: no
 
 - name: Make m2 directory
