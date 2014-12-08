@@ -89,7 +89,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provider "virtualbox" do |vb, override|
     # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
     # sync VM guest directories with the local ./sync directory
     # NOTE: the synced_folder configuration done here is meant to support 
     # dryad development with a local VM hosting the dryad codebase and running
