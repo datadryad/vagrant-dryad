@@ -89,7 +89,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provider "virtualbox" do |vb, override|
     # Use VBoxManage to customize the VM. For example to change memory:
-    vb.cpu = 4
+    vb.cpus = 4
     vb.memory = 4096
     # sync VM guest directories with the local ./sync directory
     # NOTE: the synced_folder configuration done here is meant to support 
