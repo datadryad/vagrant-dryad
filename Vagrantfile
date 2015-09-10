@@ -89,7 +89,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provider "virtualbox" do |vb, override|
     # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.memory = 1024
+    vb.cpus = 2
+    # sync VM guest directories with the local ./sync directory
+    # NOTE: the synced_folder configuration done here is meant to support 
+    # dryad development with a local VM hosting the dryad codebase and running
+    # the applicaiton. It is not done for the AWS provider because
+    # that provider type shares guest -> host only (not bidirectionally), which is 
+    # not useful for the expected development scenario.
+    # See https://github.com/mitchellh/vagrant-aws/blob/master/README.md#synced-folders
+    override.vm.synced_folder "sync/opt/dryad",  "/opt/dryad",  create: false
+    override.vm.synced_folder "sync/home/vagrant/dryad-repo",  "/home/vagrant/dryad-repo",  create: false
   end
   config.vm.provider :aws do |aws, override|
     override.vm.box = "dummy"
@@ -117,3 +127,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.host_key_checking = false
   end
 end
+
