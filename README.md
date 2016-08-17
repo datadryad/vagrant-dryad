@@ -72,7 +72,7 @@ After the machine has been created/provisioned successfully, you can log in with
 
     vagrant ssh
     
-Within the virtual machine, the __vagrant__ user owns the Dryad code and installed directory.
+Within the virtual machine, the __ubuntu__ user owns the Dryad code and installed directory.
 
 To shut down the virtual machine, use
 
@@ -85,16 +85,16 @@ If you wish to destroy the virtual machine
 
 ## Developing, Building, Testing, Deploying
 
-By default, the Dryad repo is checked out to `/home/vagrant/dryad-repo`. This and other defaults can be changed before provisioning by editing the `ansible-dryad/group_vars/all` file.
+By default, the Dryad repo is checked out to `/home/ubuntu/dryad-repo`. This and other defaults can be changed before provisioning by editing the `ansible-dryad/group_vars/all` file.
 
 When you log in with ssh, the VM will show some information about file locations and next steps.  In order to get Dryad up and running, these scripts need to be run in order.
 
 ```
-1. Build dryad          /home/vagrant/bin/build_dryad.sh
-2. Deploy dryad         /home/vagrant/bin/deploy_dryad.sh
-3. Install database     /home/vagrant/bin/install_dryad_database.sh
-4. Start tomcat         /home/vagrant/dryad-tomcat/bin/startup.sh
-5. Rebuild SOLR indexes /home/vagrant/bin/build_indexes.sh
+1. Build dryad          /home/ubuntu/bin/build_dryad.sh
+2. Deploy dryad         /home/ubuntu/bin/deploy_dryad.sh
+3. Install database     /home/ubuntu/bin/install_dryad_database.sh
+4. Start tomcat         /home/ubuntu/dryad-tomcat/bin/startup.sh
+5. Rebuild SOLR indexes /home/ubuntu/bin/build_indexes.sh
 ```
 
 After the first build/install process, you'll only need to run redeploy_dryad.sh
@@ -108,7 +108,7 @@ $ /opt/dryad/bin/dspace create-administrator
 
 ### Running tests
 
-To run tests, use the `test_dryad.sh` script in `/home/vagrant/bin/`.  This script will 
+To run tests, use the `test_dryad.sh` script in `/home/ubuntu/bin/`.  This script will 
 1. Ensure a test database and dspace directory exist
 2. Run tests with `mvn package -DskipTests=false -Ddefault.dspace.dir=...`
 
@@ -118,7 +118,7 @@ You can use `test_dryad -c` to clean the test environment or manually reset the 
 
 Dryad sends email notifications for many reasons, including workflow changes and user registrations. By default, `localhost` is used for the mail server. If you'd like to use a real mail server, you can reconfigure this. See `settings.xml` in [How to install Dryad](http://wiki.datadryad.org/How_To_Install_Dryad). Within the vagrant virtual machine you can simply run `run_mailserver.sh`. This script runs a "dummy" mailserver that accepts any incoming mail and displays it on the screen.
 
-    vagrant@precise64:~$ run_mailserver.sh
+    ubuntu@precise64:~$ run_mailserver.sh
     =================================================
     Starting SMTP server on localhost:25
     All email sent to this host will be printed below
@@ -130,7 +130,7 @@ Dryad sends email notifications for many reasons, including workflow changes and
 
 ## Debugging
 
-If you'd like to use an external tool that supports JPDA debugging (e.g. NetBeans, Eclipse), the default JPDA port (8000) is already configured for forwarding. To start tomcat with debugging enabled, use the `/home/vagrant/dryad-tomcat/bin/startup-debug.sh` script
+If you'd like to use an external tool that supports JPDA debugging (e.g. NetBeans, Eclipse), the default JPDA port (8000) is already configured for forwarding. To start tomcat with debugging enabled, use the `/home/ubuntu/dryad-tomcat/bin/startup-debug.sh` script
 
 ## Customizing the Vagrant-built VM
 
@@ -148,7 +148,7 @@ In addition to passwords and Git repo addresses, software versions, file paths, 
 
 ## Communication with the VM
 
-In addition to port forwarding, the contents of this directory (The one containing the Vagrantfile) are synchronized from your host computer to the virtual machine's `/vagrant` directory. Additional synchronized directories can be added to the Vagrantfile. For example, the `dryad-bootstrap.sql` file that installs necessary content into the database is stored here, and used by the VM during installation.
+In addition to port forwarding, the contents of this directory (The one containing the Vagrantfile) are synchronized from your host computer to the virtual machine's `/ubuntu` directory. Additional synchronized directories can be added to the Vagrantfile. For example, the `dryad-bootstrap.sql` file that installs necessary content into the database is stored here, and used by the VM during installation.
 
 ## Upgrading your VM
 

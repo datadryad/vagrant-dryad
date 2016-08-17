@@ -19,14 +19,14 @@ postgresql:
     effective_cache_size: 128MB
 
 dryad:
-  user: vagrant
-  user_home: /home/vagrant
+  user: ubuntu
+  user_home: /home/ubuntu
   java:
     deb: deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main
     deb_src: deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main
   repo: ## DRYAD-REPO GIT URL or https://github.com/datadryad/dryad-repo.git ##
-  repo_path: /home/vagrant/dryad-repo
-  tomcat_home: /home/vagrant/dryad-tomcat
+  repo_path: /home/ubuntu/dryad-repo
+  tomcat_home: /home/ubuntu/dryad-tomcat
   dryad_home: vagrant-dryad
   install_dir: /opt/dryad
   admin_email: root@localhost

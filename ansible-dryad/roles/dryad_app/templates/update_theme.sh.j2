@@ -1,12 +1,12 @@
 # Update the Mirage theme in the deployed directory, 
 # using the theme from the currently checked out branch
 
-cp /home/vagrant/dryad-repo/dspace/config/pages/* /opt/dryad/config/pages/
+cp {{ dryad.user_home }}/dryad-repo/dspace/config/pages/* /opt/dryad/config/pages/
 rm -rf /opt/dryad/webapps/xmlui/themes/Mirage/pages
-cp -r /home/vagrant/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/pages /opt/dryad/webapps/xmlui/themes/Mirage
+cp -r {{ dryad.user_home }}/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/pages /opt/dryad/webapps/xmlui/themes/Mirage
 rm -rf /opt/dryad/webapps/xmlui/themes/Mirage/images
-cp -r /home/vagrant/dryad-repo/dspace-xmlui/dspace-xmlui-webapp/src/main/webapp/themes/Mirage/images /opt/dryad/webapps/xmlui/themes/Mirage
-cp -r /home/vagrant/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/images /opt/dryad/webapps/xmlui/themes/Mirage
+cp -r {{ dryad.user_home }}/dryad-repo/dspace-xmlui/dspace-xmlui-webapp/src/main/webapp/themes/Mirage/images /opt/dryad/webapps/xmlui/themes/Mirage
+cp -r {{ dryad.user_home }}/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/images /opt/dryad/webapps/xmlui/themes/Mirage
 rm -rf /opt/dryad/webapps/xmlui/themes/Mirage/docs
-cp -r /home/vagrant/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/docs /opt/dryad/webapps/xmlui/themes/Mirage
-cp /home/vagrant/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/Mirage.xsl /opt/dryad/webapps/xmlui/themes/Mirage/Mirage.xsl
+cp -r {{ dryad.user_home }}/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/docs /opt/dryad/webapps/xmlui/themes/Mirage
+cp {{ dryad.user_home }}/dryad-repo/dspace/modules/xmlui/src/main/webapp/themes/Mirage/Mirage.xsl /opt/dryad/webapps/xmlui/themes/Mirage/Mirage.xsl

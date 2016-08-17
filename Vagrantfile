@@ -104,10 +104,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # From http://cloud-images.ubuntu.com/locator/ec2/
     # us-east-1	precise	12.04 LTS	amd64	ebs	20140606	ami-a49665cc	aki-919dcaf8
-    aws.ami = "ami-a49665cc"
+    aws.ami = "ami-a69665ce"
+    aws.instance_type = "t2.small"
+    aws.block_device_mapping = [{ 'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => 50 }]
     override.ssh.username = "ubuntu"
     override.ssh.private_key_path = ENV["DRYAD_AWS_PRIVATEKEY_PATH"]
   end
+  config.vm.synced_folder ".", "/ubuntu", type: "rsync",
+    rsync__exclude: [".git/","packer-templates/"]
+
   #
   # View the documentation for the provider you're using for more
   # information on available options.
@@ -120,5 +125,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.playbook = "./ansible-dryad/setup.yml"
     ansible.sudo = true
     ansible.host_key_checking = false
+    #ansible.verbose = '-vvvv'
   end
 end

@@ -2,3 +2,5 @@
 dryad-vagrant.sql
 ansible-dryad/group_vars/all
 transfer
+
+*.box

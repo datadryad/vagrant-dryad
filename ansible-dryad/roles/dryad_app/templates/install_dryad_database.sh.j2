@@ -33,7 +33,7 @@ echo "Creating administrative user"
 {{ dryad.install_dir }}/bin/create-administrator
 
 echo "Bootstraping Dryad data"
-psql < /vagrant/dryad-bootstrap.sql
+psql < /ubuntu/dryad-bootstrap.sql
 
 echo "Installing metadata schemas"
 {{ dryad.install_dir }}/bin/dsrun org.dspace.administer.MetadataImporter -f {{ dryad.install_dir }}/config/registries/dryad-types.xml
