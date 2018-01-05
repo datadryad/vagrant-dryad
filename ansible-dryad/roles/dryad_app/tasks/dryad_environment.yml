@@ -1,0 +1,12 @@
+---
+- name: Install useful command-line tools
+  apt: pkg={{ item }} state=installed update-cache=yes
+#  async: 60
+#  poll: 60
+  with_items:
+    - emacs23
+    - ack-grep
+
+- name: Correct name of ack
+  shell: dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+  sudo: yes

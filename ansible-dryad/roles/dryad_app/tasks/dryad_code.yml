@@ -12,8 +12,16 @@
   template: src=settings.xml.j2 dest="{{ dryad.user_home }}/.m2/settings.xml"
   sudo: no
 
+- name: Add temporary newline file to approve tomcat creation
+  template: src=newline_file.txt.j2 dest="{{ dryad.user_home }}/newline_file.txt"
+  sudo: no
+
 - name: Make private tomcat instance
-  command: tomcat6-instance-create {{ dryad.tomcat_home }} creates={{ dryad.tomcat_home }}
+  shell: tomcat6-instance-create {{ dryad.tomcat_home }} <{{ dryad.user_home }}/newline_file.txt creates={{ dryad.tomcat_home }}
+  sudo: no
+
+- name: Remove temporary newline file
+  shell: rm {{ dryad.user_home }}/newline_file.txt
   sudo: no
 
 - name: Update tomcat server.xml

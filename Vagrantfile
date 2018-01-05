@@ -141,6 +141,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.playbook = "./ansible-dryad/setup.yml"
     ansible.sudo = true
     ansible.host_key_checking = false
-    #ansible.verbose = '-vvvv'
+    ansible.verbose = 'v'
   end
 end
