@@ -6,6 +6,13 @@ export PGPORT={{ dryad.db.port }}
 export PGUSER={{ dryad.db.user }}
 export PGDATABASE={{ dryad.db.name }}
 
+source ~/.git-completion.sh
+source ~/.git-prompt.sh
+
+# Make the prompt fancy
+export PROMPT_COMMAND='DIR=`pwd|sed -e "s!$HOME!~!"`; if [ {{'${#DIR}'}} -gt 30 ]; then CurDir=${DIR:0:12}...${DIR:{{'${#DIR}'}}-15}; else CurDir=$DIR; fi'
+export PS1='\h:$CurDir$(__git_ps1 "(%s)")->'
+
 if [ ! -f $HOME/.gitconfig ]; then
   echo
   echo "Please configure your git name and email:"

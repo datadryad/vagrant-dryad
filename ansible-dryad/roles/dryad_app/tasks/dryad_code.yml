@@ -58,6 +58,14 @@
   template: src=.bash_profile.j2 dest="{{ dryad.user_home }}/.bash_profile" mode=0644
   become: no
 
+- name: install git-completion script
+  template: src=.git-completion..sh.j2 dest="{{ dryad.user_home }}/.git-completion.sh" mode=0755
+  sudo: no
+
+- name: install git-prompt script
+  template: src=.git-prompt.sh.j2 dest="{{ dryad.user_home }}/.git-prompt.sh" mode=0755
+  sudo: no
+
 - name: Install build script
   template: src=build_dryad.sh.j2 dest="{{ dryad.user_home }}/bin/build_dryad.sh" mode=0755
   become: no
