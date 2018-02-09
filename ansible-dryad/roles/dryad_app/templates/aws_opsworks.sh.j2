@@ -2,3 +2,8 @@
 
 echo "Registering instance with AWS OpsWorks..."
 aws opsworks register --region {{ dryad.aws.regionName }} --infrastructure-class ec2 --stack-id c05bd570-7890-4579-8edb-826332df7e04 --local
+
+echo "Assigning instance to Vagrant Servers layer"
+INSTANCE_ID=$(sudo opsworks-agent-cli stack_state | sed -n 's/\"instance_id\"\://p' | sed -n 's/\s//pg' | sed -n 's/"//pg' | sed -n 's/,//pg')
+
+aws opsworks update-instance --instance-id $INSTANCE_ID --layer-ids a5104ca6-cef9-4e67-ad6e-b4a803886692
