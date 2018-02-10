@@ -41,7 +41,7 @@ fi
 
 # Register this instance with OpsWorks on first login
 if [ -f ~/.aws/aws_opsworks.sh ]; then
-	bash ~/.aws/aws_opsworks.sh
+	sudo bash ~/.aws/aws_opsworks.sh
 	rm ~/.aws/aws_opsworks.sh
 fi
 
