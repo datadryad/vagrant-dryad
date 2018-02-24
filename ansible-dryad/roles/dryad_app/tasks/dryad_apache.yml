@@ -1,0 +1,34 @@
+---
+- name: Purge the apache webserver
+  apt: pkg={{ item }} state=absent purge=yes
+  with_items:
+    - apache2
+
+- name: Remove any previous apache config
+  file: path=/etc/apache2 state=absent
+  become: yes
+
+- name: Install the apache webserver
+  apt: pkg={{ item }} state=installed update-cache=yes
+  with_items:
+    - apache2
+
+- name: Install apache modules
+  shell: a2enmod {{ item }}
+  with_items:
+    - proxy
+    - proxy_ajp
+    - rewrite
+  become: yes
+
+- name: Copy apache proxy config
+  template: src=apache_proxy.conf.j2 dest="/etc/apache2/mods-enabled/proxy.conf"
+  become: yes
+
+- name: Copy apache virtualhost config with redirects
+  template: src=apache_default_virtualhost.j2 dest="/etc/apache2/sites-enabled/000-default.conf"
+  become: yes
+
+- name: Restart apache to pick up the new config settings
+  service: name=apache2 state=restarted
+  become: yes

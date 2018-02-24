@@ -1,64 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-  <profiles>
-   <profile>
-      <id>env-dev</id>
-      <properties>
-        <default.dryad.home>{{ dryad.dryad_home }}</default.dryad.home>
-        <default.dspace.dir>{{ dryad.install_dir }}</default.dspace.dir>
-        <default.dspace.hostname>{{ dryad.hostname }}</default.dspace.hostname>
-        <default.dspace.port>{{ dryad.port }}</default.dspace.port>
-        <default.dspace.url>{{ dryad.url }}</default.dspace.url>
-        <default.db.url>jdbc:postgresql://{{ dryad.db.host }}:{{ dryad.db.port }}/{{ dryad.db.name }}</default.db.url>
-        <default.db.username>{{ dryad.db.user }}</default.db.username>
-        <default.db.password>{{ dryad.db.password }}</default.db.password>
-        <default.harvester.eperson>{{ dryad.admin_email }}</default.harvester.eperson>
-        <default.solr.search.server>{{ dryad.url }}/solr/search/</default.solr.search.server>
-        <default.solr.stats.server>{{ dryad.url }}/solr/statistics</default.solr.stats.server>
-        <default.solr.dryad.server>{{ dryad.url }}/solr/dryad</default.solr.dryad.server>
-        <default.solr.authority.server>{{ dryad.url }}/solr/authority</default.solr.authority.server>
-      	<default.solr.log.dataonemn.server>{{ dryad.url }}/solr/dataoneMNlog</default.solr.log.dataonemn.server>
-        <default.doi.username>{{ dryad.doi.username }}</default.doi.username>
-        <default.doi.password>{{ dryad.doi.password }}</default.doi.password>
-        <default.doi.prefix>10.5061</default.doi.prefix>
-        <default.doi.testprefix>10.5072</default.doi.testprefix>
-        <default.doi.localpart.testsuffix>FK2dryad.</default.doi.localpart.testsuffix>
-      	<default.doi.testmode>true</default.doi.testmode>
-        <default.dryad.localize>true</default.dryad.localize>
-        <default.doi.datacite.connected>false</default.doi.datacite.connected>
-        <default.doi.service>{{ dryad.url }}/doi</default.doi.service>
-        <default.mail.server>localhost</default.mail.server>
-   			<default.mail.server.username></default.mail.server.username>
-   			<default.mail.server.password></default.mail.server.password>
-        <default.mail.extraproperties>mail.smtp.socketFactory.port=1025</default.mail.extraproperties>
+	<profiles>
+		<profile>
+			<id>env-dev</id>
+			<properties>
+				<default.dryad.home>{{ dryad.dryad_home }}</default.dryad.home>
+				<default.dspace.dir>{{ dryad.install_dir }}</default.dspace.dir>
+				<default.dspace.hostname>{{ dryad.hostname }}</default.dspace.hostname>
+				<default.dspace.port>{{ dryad.port }}</default.dspace.port>
+				<!-- the actual URL that the users will use to access the
+				     service. Only include port if the users will use it -->
+				<default.dspace.url>{{ dryad.url }}</default.dspace.url>
+
+				<!-- Database -->
+				<default.db.url>jdbc:postgresql://{{ dryad.db.host }}:{{ dryad.db.port }}/{{ dryad.db.name }}</default.db.url>
+				<default.db.username>{{ dryad.db.user }}</default.db.username>
+				<default.db.password>{{ dryad.db.password }}</default.db.password>
+
+				<!-- Harvester -->
+				<default.harvester.eperson>{{ dryad.admin_email }}</default.harvester.eperson>
+
+				<!-- SOLR indexes -->
+				<default.solr.search.server>{{ dryad.url }}/solr/search/</default.solr.search.server>
+				<default.solr.stats.server>{{ dryad.url }}/solr/statistics</default.solr.stats.server>
+				<default.solr.dryad.server>{{ dryad.url }}/solr/dryad</default.solr.dryad.server>
+				<default.solr.authority.server>{{ dryad.url }}/solr/authority</default.solr.authority.server>
+				<default.solr.log.dataonemn.server>{{ dryad.url }}/solr/dataoneMNlog</default.solr.log.dataonemn.server>
+				<default.solr.responselogging.server>{{ dryad.url }}/solr/responselogging</default.solr.responselogging.server>
+				<default.solr.xoai.server>{{ dryad.url }}/solr/xoai</default.solr.xoai.server>
+
+				<!-- DOI -->
+				<default.doi.username>{{ dryad.doi.username }}</default.doi.username>
+				<default.doi.password>{{ dryad.doi.password }}</default.doi.password>
+				<default.doi.prefix>10.5061</default.doi.prefix>
+				<default.doi.testprefix>10.5072</default.doi.testprefix>
+				<default.doi.localpart.testsuffix>FK2dryad.</default.doi.localpart.testsuffix>
+				<default.doi.testmode>true</default.doi.testmode>
+				<default.dryad.localize>true</default.dryad.localize>
+				<default.doi.datacite.connected>false</default.doi.datacite.connected>
+				<default.doi.service>{{ dryad.url }}/doi</default.doi.service>
+
+				<!-- Email -->
+				<default.mail.server>localhost</default.mail.server>
+				<default.mail.server.username></default.mail.server.username>
+				<default.mail.server.password></default.mail.server.password>
+				<default.mail.server.disabled>{{ dryad.mail_disabled }}</default.mail.server.disabled>
+				<default.mail.extraproperties>mail.smtp.socketFactory.port=1025</default.mail.extraproperties>
 				<default.mail.admin>{{ dryad.admin_email }}</default.mail.admin>
 				<default.mail.help>{{ dryad.admin_email }}</default.mail.help>
-      	<default.subscribe_mailinglist.recipient>{{ dryad.admin_email }}</default.subscribe_mailinglist.recipient>
-      	<default.membership.recipient>{{ dryad.admin_email }}</default.membership.recipient>
-				<default.harvester.eperson>{{ dryad.admin_email }}</default.harvester.eperson>
-        <default.bagit.executable>/home/dryad/bagit-3.4/bin/bag</default.bagit.executable>
-        <default.bagit.testing.mode>true</default.bagit.testing.mode>
-        <default.submit.journal.config>{{ dryad.install_dir }}/config/DryadJournalSubmission.testing.properties</default.submit.journal.config>
-        <!-- Payment System -->
-        <paypal.vendor>{{ dryad.paypal.vendor }}</paypal.vendor>
-        <paypal.user>{{ dryad.paypal.user }}</paypal.user>
-        <paypal.pwd>{{ dryad.paypal.password }}</paypal.pwd>
-        <paypal.payflow.link>https://pilot-payflowpro.paypal.com/</paypal.payflow.link>
-        <paypal.link>https://payflowlink.paypal.com</paypal.link>
-        <paypal.partner>PayPal</paypal.partner>
-        <paypal.verbosity>HIGH</paypal.verbosity>
-        <paypal.slienttran>TRUE</paypal.slienttran>
-        <paypal.mode>test</paypal.mode>
-        <!-- Response Logging -->
-        <default.solr.responselogging.server>{{ dryad.url }}/solr/responselogging</default.solr.responselogging.server>
-	<!-- Amazon AWS Settings -->
-	<default.aws.accessKey>{{ dryad.aws.accessKey }}</default.aws.accessKey>
-	<default.aws.secretKey>{{ dryad.aws.secretKey }}</default.aws.secretKey>
-	<default.aws.regionName>{{ dryad.aws.regionName }}</default.aws.regionName>
-	<default.aws.s3.bucketName>{{ dryad.aws.bucketName }}</default.aws.s3.bucketName>
-	<default.aws.s3.subfolder></default.aws.s3.subfolder>
-	<default.assetstore.incoming>{{ dryad.assetstoreIncoming }}</default.assetstore.incoming>
-      </properties>
- </profile>
-</profiles>
+				<default.subscribe_mailinglist.recipient>{{ dryad.admin_email }}</default.subscribe_mailinglist.recipient>
+				<default.membership.recipient>{{ dryad.admin_email }}</default.membership.recipient>
+				<default.curator_errors.recipient>{{ dryad.curator_internal_email }}</default.curator_errors.recipient>
+				<default.automated.email.recipient>{{ dryad.automated_email }}</default.automated.email.recipient>
+
+				<!-- BagIt -->
+				<default.bagit.executable>/home/dryad/bagit-3.4/bin/bag</default.bagit.executable>
+				<default.bagit.testing.mode>true</default.bagit.testing.mode>
+
+				<!-- Journal email processing -->
+				<default.submit.journal.config>{{ dryad.install_dir }}/config/DryadJournalSubmission.testing.properties</default.submit.journal.config>
+				<default.submit.journal.email></default.submit.journal.email>
+				<default.submit.journal.label>journal-submit</default.submit.journal.label>
+				<default.submit.journal.error.label>journal-submit-error</default.submit.journal.error.label>
+				<default.submit.journal.email.timer>60</default.submit.journal.email.timer>
+				<default.submit.journal.clientsecret>{{ dryad.journal.clientsecret }}</default.submit.journal.clientsecret>
+
+				<!-- DataONE Member Node -->
+				<default.dataone.baseURL>{{ dryad.url }}/mn</default.dataone.baseURL>
+				<default.dataone.nodeID>urn:node:DRYAD</default.dataone.nodeID>
+				<default.dataone.contact>{{ dryad.dataone.contact }}</default.dataone.contact>
+
+				<!-- Payment System -->
+				<paypal.vendor>{{ dryad.paypal.vendor }}</paypal.vendor>
+				<paypal.user>{{ dryad.paypal.user }}</paypal.user>
+				<paypal.pwd>{{ dryad.paypal.password }}</paypal.pwd>
+				<paypal.payflow.link>https://pilot-payflowpro.paypal.com/</paypal.payflow.link>
+				<paypal.link>https://payflowlink.paypal.com</paypal.link>
+				<paypal.partner>PayPal</paypal.partner>
+				<paypal.verbosity>HIGH</paypal.verbosity>
+				<paypal.slienttran>TRUE</paypal.slienttran>
+				<paypal.mode>{{ dryad.paypal.mode }}</paypal.mode>
+
+				<!-- ORCID Integration -->
+				<default.orcid.api.URL>https://api.orcid.org/v1.2</default.orcid.api.URL>
+				<authentication-oauth.authorize.URL>https://orcid.org/oauth/authorize</authentication-oauth.authorize.URL>
+				<authentication-oauth.application-token.URL>https://api.orcid.org/oauth/token</authentication-oauth.application-token.URL>
+				<authentication-oauth.application-client-id>{{ dryad.orcid.application_client_id }}</authentication-oauth.application-client-id>
+				<authentication-oauth.application-client-secret>{{ dryad.orcid.application_client_secret }}</authentication-oauth.application-client-secret>
+
+				<!-- System Curator - See http://wiki.datadryad.org/Automatic_Workflow_Processing_Technology#Configuration_Changes -->
+				<default.system.curator.account>system.curator@datadryad.org</default.system.curator.account>
+
+				<!-- Publication Updater -->
+				<default.publication.updater.timer>7</default.publication.updater.timer>
+				<default.curator.recipient>{{ dryad.curator_apu_email }}</default.curator.recipient>
+				<default.publication.updater.token>{{ dryad.apu_token }}</default.publication.updater.token>
+
+				<!-- AutoReturnReview -->
+				<default.autoreturnreview.olderthan>2</default.autoreturnreview.olderthan>
+
+				<!-- Amazon AWS Settings -->
+				<default.aws.accessKey>{{ dryad.aws.accessKey }}</default.aws.accessKey>
+				<default.aws.secretKey>{{ dryad.aws.secretKey }}</default.aws.secretKey>
+				<default.aws.regionName>{{ dryad.aws.regionName }}</default.aws.regionName>
+				<default.aws.s3.bucketName>{{ dryad.aws.bucketName }}</default.aws.s3.bucketName>
+				<default.aws.s3.subfolder></default.aws.s3.subfolder>
+				<default.assetstore.incoming>{{ dryad.assetstoreIncoming }}</default.assetstore.incoming>
+			</properties>
+		</profile>
+	</profiles>
 </settings>

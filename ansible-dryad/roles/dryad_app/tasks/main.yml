@@ -4,3 +4,4 @@
 - include: dryad_deps.yml
 - include: dryad_setupdb.yml
 - include: dryad_code.yml
+- include: dryad_apache.yml

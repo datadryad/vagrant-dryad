@@ -1,0 +1,7 @@
+<IfModule mod_proxy.c>
+
+	  ProxyRequests Off 
+	  ProxyPass       / ajp://localhost:8009/
+	  ProxyPassReverse    / ajp://localhost:8009/
+
+</IfModule>

@@ -1,0 +1,37 @@
+<VirtualHost *:80>
+
+	ServerAdmin  help@datadryad.org  
+	DocumentRoot /var/www/html
+
+	ErrorLog ${APACHE_LOG_DIR}/datadryad.org-error_log
+	CustomLog ${APACHE_LOG_DIR}/datadryad.org-access_log combined
+
+	AllowEncodedSlashes On
+        AcceptPathInfo On
+	AddDefaultCharset UTF-8
+	ProxyPreserveHost On
+
+
+        RewriteEngine On
+
+	# Block DSpace security hole
+	# This redirects all vulnerable URLs to /error
+	# (which doesn't exist and throws a 404 response)
+	RewriteRule ^/+themes/.*:.*$ /error [R=permanent,L]
+
+ 	# General rewrites for convenient URLs
+	RewriteRule ^/docs$ /themes/Mirage/docs [R=301]
+	RewriteRule ^/submit$ /handle/10255/3/submit [R]
+	RewriteRule ^/repo(.*)$ http://www.datadryad.org$1 [P,R=301]
+	RewriteRule ^/about$ /pages/organization [R=301]
+	RewriteRule ^/members$ /pages/membershipOverview [R=301]
+	RewriteRule ^/jdap$ /pages/jdap [R=301]
+	RewriteRule ^/policies$ /pages/policies [R=301]
+	RewriteRule ^/searching$ /pages/searching [R=301]
+	RewriteRule ^/depositing$ /pages/faq#depositing [NE,R=301]
+	RewriteRule ^/using$ /pages/faq#using [NE,R=301]
+	RewriteRule ^/publicationBlackout$ /pages/publicationBlackout [R=301]
+	RewriteRule ^/dans-news$ http://wiki.datadryad.org/images/2/29/Dryad-DANS_Announcement.pdf
+	ProxyPass /dryadlab http://datadryad.org/pages/dryadlab
+	ProxyPassReverse /dryadlab http://datadryad.org/pages/dryadlab               
+</VirtualHost>

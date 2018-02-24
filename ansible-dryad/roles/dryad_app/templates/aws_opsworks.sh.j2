@@ -2,3 +2,16 @@
 
 echo "Registering instance with AWS OpsWorks..."
 aws opsworks register --region {{ dryad.aws.regionName }} --infrastructure-class ec2 --stack-id c05bd570-7890-4579-8edb-826332df7e04 --local
+
+echo "Assigning instance to Dryad Servers layer"
+
+sleep 5
+INSTANCE_ID=$(sudo opsworks-agent-cli stack_state | sed -n 's/\"instance_id\"\://p' | sed -n 's/\s//pg' | sed -n 's/"//pg' | sed -n 's/,//pg')
+
+while [ $INSTANCE_ID == "" ]; do
+	echo "still waiting for instance to register..."
+	sleep 5
+	INSTANCE_ID=$(sudo opsworks-agent-cli stack_state | sed -n 's/\"instance_id\"\://p' | sed -n 's/\s//pg' | sed -n 's/"//pg' | sed -n 's/,//pg')
+done
+
+aws opsworks update-instance --instance-id $INSTANCE_ID --layer-ids 0e95b566-d572-4a2d-a83b-a7018e451c19

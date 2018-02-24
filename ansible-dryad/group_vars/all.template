@@ -1,5 +1,5 @@
 postgresql:
-  version: 9.5
+  version: 9.6
   repo: 'deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main'
   install_development_headers: true
 
@@ -24,14 +24,19 @@ dryad:
   java:
     deb: deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main
     deb_src: deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main
-  repo: ## DRYAD-REPO GIT URL or https://github.com/datadryad/dryad-repo.git ##
+  github_user: datadryad ## or YOUR USERNAME ## 
   repo_path: /home/ubuntu/dryad-repo
   tomcat_home: /home/ubuntu/dryad-tomcat
   dryad_home: vagrant-dryad
   install_dir: /opt/dryad
   admin_email: root@localhost
+  curator_internal_email: root@localhost
+  automated_email: root@localhost
+  curator_apu_email: root@localhost
+  mail_disabled: true ## set to false if this is to be a production server
+  apu_token: ''
   host: 192.168.111.223
-  hostname: localhost
+  hostname: localhost ## This must match the machine's public DNS name, or some links will fail. ##
   port: 9999
   url: http://localhost:9999
   jmx:
@@ -44,13 +49,13 @@ dryad:
     port: 5432
     name: dryad_repo
     user: dryad_app
-    password: ## DB PASSWORD ##
+    password: ## DB_PASSWORD ##
   testdb:
     host: 127.0.0.1
     port: 5432
     name: dryad_test_db
     user: dryad_test_user
-    password: ## TEST DB PASSWORD ##
+    password: ## TEST_DB_PASSWORD ##
   aws:
     accessKey: "{{ lookup('env', 'DRYAD_AWS_ACCESS_KEY_ID') }}"
     secretKey: "{{ lookup('env', 'DRYAD_AWS_SECRET_ACCESS_KEY') }}"
@@ -61,4 +66,11 @@ dryad:
     vendor: ''
     user: ''
     password: ''
-
+    mode: 'test'
+  orcid:
+    application_client_id: "{{ lookup('env', 'ORCID_API_CLIENT_ID') }}"
+    application_client_secret: "{{ lookup('env', 'ORCID_API_CLIENT_SECRET') }}"    
+  journal:
+    clientsecret: ''
+  dataone:
+    contact: ''

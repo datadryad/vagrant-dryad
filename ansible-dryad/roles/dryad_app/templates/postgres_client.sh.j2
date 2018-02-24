@@ -1,10 +1,10 @@
 #! /bin/bash
 
-if [[ "$DBHOST" == "" ]]; then
+if [[ "$PGHOST" == "" ]]; then
 	psql -U dryad_app -d dryad_repo "$*"
 fi
 
-if [[ "$DBHOST" != "" ]]; then
-	psql --host $DRYAD_DB_HOST -U dryad_app -d dryad_repo "$*"
+if [[ "$PGHOST" != "" ]]; then
+	psql --host $PGHOST -U dryad_app -d dryad_repo "$*"
 fi
 

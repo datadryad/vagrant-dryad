@@ -23,7 +23,7 @@ These packages are available on many platforms, but the Dryad organization prima
 
 You will need to clone the repository that contains the Vagrant/Ansible settings:
 
-    git clone git@github.com:datadryad/vagrant-dryad.git
+    git clone https://github.com/datadryad/vagrant-dryad.git
     cd vagrant-dryad
     
 ## Preparing for an AWS deployment
@@ -167,7 +167,9 @@ You can use `test_dryad -c` to clean the test environment or manually reset the 
 
 ## Emails from Dryad
 
-Dryad sends email notifications for many reasons, including workflow changes and user registrations. By default, `localhost` is used for the mail server. If you'd like to use a real mail server, you can reconfigure this. See `settings.xml` in [How to install Dryad](http://wiki.datadryad.org/How_To_Install_Dryad). Within the vagrant virtual machine you can simply run `run_mailserver.sh`. This script runs a "dummy" mailserver that accepts any incoming mail and displays it on the screen.
+Dryad sends email notifications for many reasons, including workflow changes and user registrations. Before email will be sent, the configuration for default.mail.server.disabled will need to be set to "false" in the maven settings.xml.
+
+By default, `localhost` is used for the mail server. If you'd like to use a real mail server, you can reconfigure this. See `settings.xml` in [How to install Dryad](http://wiki.datadryad.org/How_To_Install_Dryad). Within the vagrant virtual machine you can simply run `run_mailserver.sh`. This script runs a "dummy" mailserver that accepts any incoming mail and displays it on the screen.
 
     ubuntu@precise64:~$ run_mailserver.sh
     =================================================
@@ -178,6 +180,8 @@ Dryad sends email notifications for many reasons, including workflow changes and
 
     Waiting for email...
     =================================================
+
+*Note for AWS deployments:* To prevent spam, many Amazon-based IP addresses are blocked or delayed by standard email providers. For testing purposes, it is best to used the dummy mailserver described above. For production machines, it is better to assign an Elastic IP address and then request that Amazon "remove email restrictions" for that IP address.
 
 ## Debugging
 

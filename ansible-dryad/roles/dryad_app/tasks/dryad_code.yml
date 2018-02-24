@@ -1,6 +1,6 @@
 ---
 - name: Clone Dryad repo
-  git: repo={{ dryad.repo }}
+  git: repo=https://github.com/{{ dryad.github_user }}/dryad-repo.git
        dest={{ dryad.repo_path }}
        accept_hostkey=yes
   become: no

@@ -7,6 +7,7 @@
     - emacs24
     - ack-grep
     - python-pip
+    - mailutils
 
 - name: Update awscli
   shell: pip install awscli
@@ -28,7 +29,7 @@
   become: no
 
 - name: Clone dryad-utils repo
-  git: repo=https://github.com/datadryad/dryad-utils.git
+  git: repo=https://github.com/{{ dryad.github_user }}/dryad-utils.git
        dest="{{ dryad.user_home }}/dryad-utils"
        accept_hostkey=yes
   become: no

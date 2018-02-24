@@ -39,11 +39,11 @@ if [ -f ~/.bashrc ]; then
    source ~/.bashrc
 fi
 
+# update instance
+sudo apt-get upgrade
+
 # Register this instance with OpsWorks on first login
 if [ -f ~/.aws/aws_opsworks.sh ]; then
 	bash ~/.aws/aws_opsworks.sh
 	rm ~/.aws/aws_opsworks.sh
 fi
-
-# update instance
-sudo apt-get upgrade
