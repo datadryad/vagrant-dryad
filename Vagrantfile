@@ -74,7 +74,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
 
   # Dryad tomcat on port 9999
-  config.vm.network "forwarded_port", guest: 9999, host: 9999
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   # Java JPDA debugging on port 8000
   config.vm.network "forwarded_port", guest: 8000, host: 8000
@@ -124,9 +124,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # From http://cloud-images.ubuntu.com/locator/ec2/
     # us-east-1	precise	12.04 LTS	amd64	ebs	20140606	ami-a49665cc	aki-919dcaf8
     aws.ami = "ami-41e0b93b"
-    aws.instance_type = "t2.small"
+    aws.instance_type = "t2.large"
     aws.security_groups = ['AWS-OpsWorks-Default-Server', 'default']
-    aws.block_device_mapping = [{ 'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => 50 }]
+    aws.block_device_mapping = [{ 'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => 100 }]
     override.ssh.username = "ubuntu"
     override.ssh.private_key_path = ENV["DRYAD_AWS_PRIVATEKEY_PATH"]
   end
