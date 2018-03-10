@@ -23,6 +23,7 @@
     - proxy
     - proxy_ajp
     - rewrite
+    - substitute
   become: yes
 
 - name: Copy apache proxy config

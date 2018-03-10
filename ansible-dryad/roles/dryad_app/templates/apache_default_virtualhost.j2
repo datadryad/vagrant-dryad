@@ -12,8 +12,8 @@
 	ProxyPreserveHost On
 
 {% if dryad.is_readonly %}
-        # Disable submission, since this is a readonly server                                                                                        
-        <LocationMatch "/">
+        # Disable submission, since this is a readonly server
+	<LocationMatch "/">
             AddOutputFilterByType SUBSTITUTE text/html
             Substitute "s|<a class=\"submitnowbutton.*</a>|Submissions have been temporarily disabled.|i"
             Substitute "s|<span id=\"login-item\">Log in</span>||i"
