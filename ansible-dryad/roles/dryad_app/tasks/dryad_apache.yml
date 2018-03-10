@@ -29,6 +29,15 @@
   template: src=apache_default_virtualhost.j2 dest="/etc/apache2/sites-enabled/000-default.conf"
   become: yes
 
+- name: Create apache convenience directory
+  file: path={{ dryad.user_home }}/apache state=directory owner={{ dryad.user }} mode=0755
+
+- name: Create symlink for access to apache config
+  file: src=/etc/apache2/ dest={{ dryad.user_home }}/apache/conf state=link owner={{ dryad.user }}
+
+- name: Create symlink for access to apache logs
+  file: src=/var/log/apache2/ dest={{ dryad.user_home }}/apache/log state=link owner={{ dryad.user }}
+
 - name: Restart apache to pick up the new config settings
   service: name=apache2 state=restarted
   become: yes
