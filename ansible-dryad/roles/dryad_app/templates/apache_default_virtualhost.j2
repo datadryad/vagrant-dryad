@@ -11,6 +11,18 @@
 	AddDefaultCharset UTF-8
 	ProxyPreserveHost On
 
+{% if dryad.is_readonly %}
+        # Disable submission, since this is a readonly server                                                                                        
+        <LocationMatch "/">
+            AddOutputFilterByType SUBSTITUTE text/html
+            Substitute "s|<a class=\"submitnowbutton.*</a>|Submissions have been temporarily disabled.|i"
+            Substitute "s|<span id=\"login-item\">Log in</span>||i"
+            Substitute "s|<span id=\"sign-up-item\">Sign up</span>||i"
+            Substitute "s|How and why\?||i"
+        </LocationMatch>
+        Redirect /login /maintenance
+        Redirect /password-login /maintenance
+{% endif %}
 
         RewriteEngine On
 

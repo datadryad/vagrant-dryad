@@ -20,6 +20,7 @@ postgresql:
 
 dryad:
   is_production: false
+  is_readonly: false
   instance_name: "{{ lookup('env', 'DRYAD_AWS_VM_NAME') }}"
   user: ubuntu
   user_home: /home/ubuntu
