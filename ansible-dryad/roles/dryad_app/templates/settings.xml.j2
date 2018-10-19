@@ -32,7 +32,8 @@
 				<!-- DOI -->
 				<default.doi.username>{{ dryad.doi.username }}</default.doi.username>
 				<default.doi.password>{{ dryad.doi.password }}</default.doi.password>
-				<default.doi.prefix>10.5061</default.doi.prefix>
+				<default.doi.server>{% if dryad.is_production %}https://ez.datacite.org/{% else %}https://ez.test.datacite.org/{% endif %}</default.doi.server>
+				<default.doi.prefix>{% if dryad.is_production %}10.5061{% else %}10.5072{% endif %}</default.doi.prefix>
 				<default.doi.testprefix>10.5072</default.doi.testprefix>
 				<default.doi.localpart.testsuffix>FK2dryad.</default.doi.localpart.testsuffix>
 				<default.doi.testmode>{% if dryad.is_production %}false{% else %}true{% endif %}</default.doi.testmode>
