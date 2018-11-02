@@ -49,3 +49,6 @@ if [ -f ~/.aws/aws_opsworks.sh ]; then
 	bash ~/.aws/aws_opsworks.sh
 	rm ~/.aws/aws_opsworks.sh
 fi
+
+# Fix for problem described at https://stackoverflow.com/questions/53010200/maven-surefire-could-not-find-forkedbooter-class
+export _JAVA_OPTIONS="-Djdk.net.URLClassPath.disableClassPathURLCheck=true"
