@@ -13,9 +13,8 @@ These applications must be installed on your host machine.  They will be used to
 
 1. [Vagrant](http://vagrantup.com) (version 2.0 or higher)
 2. [Ansible](http://ansible.com) (version 2.0 or higher)
-3. [VirtualBox](http://virtualbox.org) (not required if you will be hosting the VM on the Amazon AWS cloud)
 
-Vagrant and VirtualBox installation packages can be downloaded from their respective websites.  Ansible is a Python package with [many ways to install](http://docs.ansible.com/intro_installation.html).  One method is to use [Homebrew](http://brew.sh) (which, in turn, requires ruby) and simply `brew install ansible`.
+Vagrant installation packages can be downloaded from the respective website.  Ansible is a Python package with [many ways to install](http://docs.ansible.com/intro_installation.html).  One method is to use [Homebrew](http://brew.sh) (which, in turn, requires ruby) and simply `brew install ansible`.
 
 These packages are available on many platforms, but the Dryad organization primarily uses them on recent versions of Mac OS X.
 
@@ -68,42 +67,10 @@ Copy the `ansible-dryad/group_vars/all.template` to `ansible-dryad/group_vars/al
 
 When vagrant builds your Dryad VM, it uses the values in this file to setup the database.  You must replace the all entries in the file that are surrounded by double hash marks (`##`)
 - `repo` is the GitHub repository that will be used to download the Dryad codebase. We recommended forking the master [datadryad/dryad-repo](https://github.com/datadryad/dryad-repo) to your personal GitHub account and using the URL of your fork. 
-- IF you are doing a VirtualBox install
-  - `db.password` and `testdb.password` can be anything you like. They will only be used within the VM.
-  - `assetstoreIncoming` should be set to `0`
-- IF you are doing an AWS install
-  - `aws.regionName` is the region that the AWS machines will be created in. 
-  - `aws.bucketName` is the name of the S3 bucket that will be used for the assetstore.
-  - `assetstoreIncoming` should be set to `1`
-  - `db.host` If you are using an Amazon RDS database that contains Dryad data, this should be set to the address of that RDS instance.
-
-## Building a local VM with VirtualBox
-
-### Creating a base image
-
-While there is a small base box available online (and commented out), it is recommended that you create a local, larger base box. The default (precise64-10g) image is unable to support storage of over 10Gb, which is exceeded during import of the production database. 
-
-To build a base box that is large enough to handle the production database, see the README.md file in the directory 'packer-templates'. The tl;dr version: remove any existing vagrant boxes, then run `vagrant-box-dryad.sh` from within its directory of `packer-templates/ubuntu-12.04`.
-
-Alternatively, if you have access to AWS, you can use that provider to spin up a VM on EC2.
-
-### Bringing up the VirtualBox
-
-With VirtualBox, vagrant, and ansible installed, building the virtual machine is done with
-
-    vagrant up
-
-This command takes a while - it's downloading a base virtual machine, installing software packages, and loading Dryad.
-
-It is likely that the initial provisioning will fail, because the VM does not have permission to login to your chosen git repository. In that case,
-- login to the VM (`vagrant ssh`) 
-- create an ssh keypair (`ssh-keygen`)
-- view the public key (`cat .ssh/id_rsa.pub`)
-- copy and paste the public key into to your settings on GitHub.
-- log out of the VM (`exit`)
-- re-start the provisioning (`vagrant provision`)
-
-Sometimes provisioning fails with `fatal: [x.x.x.x] => SSH encountered an unknown error during the connection.`.  In this case simply retry with `vagrant provision`.
+- `aws.regionName` is the region that the AWS machines will be created in. 
+- `aws.bucketName` is the name of the S3 bucket that will be used for the assetstore.
+- `assetstoreIncoming` should be set to `1`
+- `db.host` If you are using an Amazon RDS database that contains Dryad data, this should be set to the address of that RDS instance.
 
 ## Building a cloud VM with Amazon AWS
 
@@ -113,9 +80,9 @@ Then download the base box: `vagrant box add dummy https://github.com/mitchellh/
 
 Verify that you have the correct path specified: `more $DRYAD_AWS_PRIVATEKEY_PATH` should give you a cryptic key starting with `-----BEGIN RSA PRIVATE KEY-----`. If not, double-check your path in your .bash_profile and source it again.
 
-Now run `vagrant up --provider=aws` to create a vagrant VM at Amazon. You should be able to find the public IP and public DNS settings for your instance in the EC2 dashboard: find your instance by clicking on Instances in the left sidebar and selecting your instance.
+Now run `vagrant up` to create a vagrant VM at Amazon. You should be able to find the public IP and public DNS settings for your instance in the EC2 dashboard: find your instance by clicking on Instances in the left sidebar and selecting your instance.
 
-*DO NOT FORGET TO HALT YOUR MACHINE WHEN YOU ARE DONE. (`vagrant halt`)*
+*Remember*, AWS will charge for any time that the machine is running. Although these charges are minimal, you may wish to avoid them. You may halt the machine whenever you are not using it. (`vagrant halt`)
 
 ## Accessing the Virtual Machine
 
@@ -129,10 +96,9 @@ To shut down the virtual machine, use
 
     vagrant halt
 
-If you wish to destroy the virtual machine
+If you wish to destroy the virtual machine, first go into AWS OpsWorks, and remove it. Then
 
     vagrant destroy
-
 
 ## Developing, Building, Testing, Deploying the Dryad code
 
@@ -143,9 +109,8 @@ When you log in with ssh, the VM will show some information about file locations
 ```
 1. Build dryad          /home/ubuntu/bin/build_dryad.sh
 2. Deploy dryad         /home/ubuntu/bin/deploy_dryad.sh
-3. Install database (only for VirtualBox install)     /home/ubuntu/bin/install_dryad_database.sh
-4. Start tomcat         /home/ubuntu/dryad-tomcat/bin/startup.sh
-5. Rebuild SOLR indexes /home/ubuntu/bin/build_indexes.sh
+3. Start tomcat         /home/ubuntu/dryad-tomcat/bin/startup.sh
+4. Rebuild SOLR indexes /home/ubuntu/bin/build_indexes.sh
 ```
 
 After the first build/install process, you'll only need to run redeploy_dryad.sh
@@ -204,8 +169,6 @@ In addition to passwords and Git repo addresses, software versions, file paths, 
 ## Communication with the VM
 
 In addition to port forwarding, the contents of this directory (The one containing the Vagrantfile) are synchronized from your host computer to the virtual machine's `/ubuntu` directory. Additional synchronized directories can be added to the Vagrantfile. For example, the `dryad-bootstrap.sql` file that installs necessary content into the database is stored here, and used by the VM during installation.
-
-When VirtualBox is used as the VM provider, vagrant is configured to sync the guest system's "/opt/dryad" and "/home/vagrant/dryad-repo" directories to subdirectories of this directory's "sync/" subdirectory.
 
 ## Upgrading your VM
 

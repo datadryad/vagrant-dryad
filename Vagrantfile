@@ -55,7 +55,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # doesn't already exist on the user's system.
 #   config.vm.box_url = "http://datadryad.org/downloads/precise64-10g.box"
 
-  config.vm.box = "dryad-ubuntu-12-04"
+  config.vm.box = "dryad"
   # Set the name
   config.vm.define "vagrant-dryad"
 
@@ -72,36 +72,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Java JMX management on port 6969
   config.vm.network "forwarded_port", guest: 6969, host: 6969
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.111.223"
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  config.ssh.forward_agent = true
-
-  # Configure the settings to use the username specified in the group vars 
-  config.ssh.username = dryad_user
-  config.ssh.private_key_path = "packer-templates/ubuntu-12.04/ubuntu"
-  config.ssh.insert_key = false
-
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  config.vm.provider "virtualbox" do |vb, override|
-    # Use VBoxManage to customize the VM. For example to change memory:
-    vb.memory = 1024
-    vb.cpus = 2
-    # sync VM guest directories with the local ./sync directory
-    # NOTE: the synced_folder configuration done here is meant to support 
-    # dryad development with a local VM hosting the dryad codebase and running
-    # the applicaiton. It is not done for the AWS provider because
-    # that provider type shares guest -> host only (not bidirectionally), which is 
-    # not useful for the expected development scenario.
-    # See https://github.com/mitchellh/vagrant-aws/blob/master/README.md#synced-folders
-    override.vm.synced_folder "sync/opt/dryad",  "/opt/dryad",  create: true
-    override.vm.synced_folder "sync/home/vagrant/dryad-repo",  "/home/vagrant/dryad-repo",  create: true
-  end
   config.vm.provider :aws do |aws, override|
     override.vm.box = "dummy"
     aws.access_key_id = ENV["DRYAD_AWS_ACCESS_KEY_ID"]
