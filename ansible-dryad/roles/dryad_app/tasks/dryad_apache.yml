@@ -22,6 +22,7 @@
   with_items:
     - proxy
     - proxy_ajp
+    - proxy_http
     - rewrite
     - substitute
   become: yes
